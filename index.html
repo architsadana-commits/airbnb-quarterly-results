@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AirPulse | Airbnb Quarterly Earnings</title>
+  <meta name="robots" content="noindex, nofollow">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container header-inner">
+      <div class="logo">
+        <img src="airbnb-logo.svg" alt="Airbnb" width="30" height="30">
+        <span>AirPulse</span>
+      </div>
+      <div class="header-meta">
+        <span class="badge">Private & Confidential</span>
+        <span class="header-source">Source: investors.airbnb.com</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-label">Latest Quarter</div>
+      <h1>Q3 2025 Results</h1>
+      <p class="hero-subtitle">Three months ended September 30, 2025 &mdash; Data sourced from official Airbnb Shareholder Letter</p>
+      <div class="hero-grid">
+        <div class="hero-card">
+          <div class="hero-card-value">$4.1B</div>
+          <div class="hero-card-label">Revenue</div>
+          <div class="hero-card-change positive">+10% Y/Y</div>
+        </div>
+        <div class="hero-card">
+          <div class="hero-card-value">$1.4B</div>
+          <div class="hero-card-label">Net Income</div>
+          <div class="hero-card-change neutral">34% Margin</div>
+        </div>
+        <div class="hero-card">
+          <div class="hero-card-value">$2.1B</div>
+          <div class="hero-card-label">Adjusted EBITDA</div>
+          <div class="hero-card-change positive">50% Margin</div>
+        </div>
+        <div class="hero-card">
+          <div class="hero-card-value">$1.3B</div>
+          <div class="hero-card-label">Free Cash Flow</div>
+          <div class="hero-card-change neutral">33% FCF Margin</div>
+        </div>
+        <div class="hero-card">
+          <div class="hero-card-value">133.6M</div>
+          <div class="hero-card-label">Nights & Seats Booked</div>
+          <div class="hero-card-change positive">+9% Y/Y</div>
+        </div>
+        <div class="hero-card">
+          <div class="hero-card-value">$22.9B</div>
+          <div class="hero-card-label">Gross Booking Value</div>
+          <div class="hero-card-change positive">+14% Y/Y</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quarter Selector -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Financial Performance</h2>
+        <p>Quarterly trends from Q1 2023 through Q3 2025</p>
+      </div>
+
+      <!-- Revenue Chart -->
+      <div class="chart-row">
+        <div class="chart-card wide">
+          <h3>Quarterly Revenue ($M)</h3>
+          <div class="chart-container">
+            <canvas id="revenueChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Profitability Charts -->
+      <div class="chart-row two-col">
+        <div class="chart-card">
+          <h3>Net Income ($M)</h3>
+          <div class="chart-container">
+            <canvas id="netIncomeChart"></canvas>
+          </div>
+        </div>
+        <div class="chart-card">
+          <h3>Adjusted EBITDA ($M) & Margin (%)</h3>
+          <div class="chart-container">
+            <canvas id="ebitdaChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cash Flow Charts -->
+      <div class="chart-row two-col">
+        <div class="chart-card">
+          <h3>Free Cash Flow ($M)</h3>
+          <div class="chart-container">
+            <canvas id="fcfChart"></canvas>
+          </div>
+        </div>
+        <div class="chart-card">
+          <h3>TTM Free Cash Flow ($M)</h3>
+          <div class="chart-container">
+            <canvas id="ttmFcfChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Key Business Metrics -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <h2>Key Business Metrics</h2>
+        <p>Operational KPIs driving growth</p>
+      </div>
+
+      <div class="chart-row two-col">
+        <div class="chart-card">
+          <h3>Nights & Seats Booked (M)</h3>
+          <div class="chart-container">
+            <canvas id="nightsChart"></canvas>
+          </div>
+        </div>
+        <div class="chart-card">
+          <h3>Gross Booking Value ($B)</h3>
+          <div class="chart-container">
+            <canvas id="gbvChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="chart-row two-col">
+        <div class="chart-card">
+          <h3>Average Daily Rate (ADR)</h3>
+          <div class="chart-container">
+            <canvas id="adrChart"></canvas>
+          </div>
+        </div>
+        <div class="chart-card">
+          <h3>Revenue Y/Y Growth (%)</h3>
+          <div class="chart-container">
+            <canvas id="growthChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Q3 2025 vs Q3 2024 Comparison -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Q3 2025 vs Q3 2024 Comparison</h2>
+        <p>Year-over-year performance analysis</p>
+      </div>
+
+      <div class="comparison-table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Metric</th>
+              <th>Q3 2024</th>
+              <th>Q3 2025</th>
+              <th>Change</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Revenue</td>
+              <td>$3,732M</td>
+              <td>$4,095M</td>
+              <td class="positive">+10%</td>
+            </tr>
+            <tr>
+              <td>Net Income</td>
+              <td>$1,368M</td>
+              <td>$1,374M</td>
+              <td class="positive">+0.4%</td>
+            </tr>
+            <tr>
+              <td>Net Income Margin</td>
+              <td>37%</td>
+              <td>34%</td>
+              <td class="negative">-3pp</td>
+            </tr>
+            <tr>
+              <td>Adjusted EBITDA</td>
+              <td>$1,958M</td>
+              <td>$2,051M</td>
+              <td class="positive">+5%</td>
+            </tr>
+            <tr>
+              <td>Adjusted EBITDA Margin</td>
+              <td>52%</td>
+              <td>50%</td>
+              <td class="negative">-2pp</td>
+            </tr>
+            <tr>
+              <td>Free Cash Flow</td>
+              <td>$1,074M</td>
+              <td>$1,349M</td>
+              <td class="positive">+26%</td>
+            </tr>
+            <tr>
+              <td>Nights & Seats Booked</td>
+              <td>122.8M</td>
+              <td>133.6M</td>
+              <td class="positive">+9%</td>
+            </tr>
+            <tr>
+              <td>Gross Booking Value</td>
+              <td>$20.1B</td>
+              <td>$22.9B</td>
+              <td class="positive">+14%</td>
+            </tr>
+            <tr>
+              <td>ADR</td>
+              <td>$163.64</td>
+              <td>$171.29</td>
+              <td class="positive">+5%</td>
+            </tr>
+            <tr>
+              <td>Implied Take Rate</td>
+              <td>18.6%</td>
+              <td>17.9%</td>
+              <td class="negative">-70bps</td>
+            </tr>
+            <tr>
+              <td>TTM Free Cash Flow</td>
+              <td>$4,072M</td>
+              <td>$4,550M</td>
+              <td class="positive">+12%</td>
+            </tr>
+            <tr>
+              <td>Cash & Liquid Assets</td>
+              <td>$11,280M</td>
+              <td>$11,719M</td>
+              <td class="positive">+4%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Q3 2025 vs Q2 2025 Sequential -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <h2>Sequential Comparison: Q3 2025 vs Q2 2025</h2>
+        <p>Quarter-over-quarter trends</p>
+      </div>
+
+      <div class="comparison-table-wrap">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Metric</th>
+              <th>Q2 2025</th>
+              <th>Q3 2025</th>
+              <th>Change</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Revenue</td>
+              <td>$3,096M</td>
+              <td>$4,095M</td>
+              <td class="positive">+32%</td>
+            </tr>
+            <tr>
+              <td>Net Income</td>
+              <td>$642M</td>
+              <td>$1,374M</td>
+              <td class="positive">+114%</td>
+            </tr>
+            <tr>
+              <td>Adjusted EBITDA</td>
+              <td>$1,043M</td>
+              <td>$2,051M</td>
+              <td class="positive">+97%</td>
+            </tr>
+            <tr>
+              <td>Adjusted EBITDA Margin</td>
+              <td>34%</td>
+              <td>50%</td>
+              <td class="positive">+16pp</td>
+            </tr>
+            <tr>
+              <td>Free Cash Flow</td>
+              <td>$962M</td>
+              <td>$1,349M</td>
+              <td class="positive">+40%</td>
+            </tr>
+            <tr>
+              <td>Nights & Seats Booked</td>
+              <td>134.4M</td>
+              <td>133.6M</td>
+              <td class="negative">-1%</td>
+            </tr>
+            <tr>
+              <td>Gross Booking Value</td>
+              <td>$23.5B</td>
+              <td>$22.9B</td>
+              <td class="negative">-3%</td>
+            </tr>
+            <tr>
+              <td>ADR</td>
+              <td>$174.48</td>
+              <td>$171.29</td>
+              <td class="negative">-2%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comprehensive Quarterly Data -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Full Quarterly Data</h2>
+        <p>Complete financial summary from Q1 2023 to Q3 2025</p>
+      </div>
+
+      <div class="table-scroll">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th class="sticky-col">Metric</th>
+              <th>Q1 '23</th>
+              <th>Q2 '23</th>
+              <th>Q3 '23</th>
+              <th>Q4 '23</th>
+              <th>Q1 '24</th>
+              <th>Q2 '24</th>
+              <th>Q3 '24</th>
+              <th>Q4 '24</th>
+              <th>Q1 '25</th>
+              <th>Q2 '25</th>
+              <th class="highlight-col">Q3 '25</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="sticky-col">Revenue ($M)</td>
+              <td>1,818</td>
+              <td>2,484</td>
+              <td>3,397</td>
+              <td>2,218</td>
+              <td>2,142</td>
+              <td>2,748</td>
+              <td>3,732</td>
+              <td>2,480</td>
+              <td>2,272</td>
+              <td>3,096</td>
+              <td class="highlight-col"><strong>4,095</strong></td>
+            </tr>
+            <tr>
+              <td class="sticky-col">Revenue Y/Y</td>
+              <td>20%</td>
+              <td>18%</td>
+              <td>18%</td>
+              <td>17%</td>
+              <td>18%</td>
+              <td>11%</td>
+              <td>10%</td>
+              <td>12%</td>
+              <td>6%</td>
+              <td>13%</td>
+              <td class="highlight-col"><strong>10%</strong></td>
+            </tr>
+            <tr>
+              <td class="sticky-col">Net Income ($M)</td>
+              <td>117</td>
+              <td>650</td>
+              <td>4,374</td>
+              <td>(349)</td>
+              <td>264</td>
+              <td>555</td>
+              <td>1,368</td>
+              <td>461</td>
+              <td>154</td>
+              <td>642</td>
+              <td class="highlight-col"><strong>1,374</strong></td>
+            </tr>
+            <tr>
+              <td class="sticky-col">NI Margin</td>
+              <td>6%</td>
+              <td>26%</td>
+              <td>129%</td>
+              <td>(16)%</td>
+              <td>12%</td>
+              <td>20%</td>
+              <td>37%</td>
+              <td>19%</td>
+              <td>7%</td>
+              <td>21%</td>
+              <td class="highlight-col"><strong>34%</strong></td>
+            </tr>
+            <tr>
+              <td class="sticky-col">Adj. EBITDA ($M)</td>
+              <td>262</td>
+              <td>819</td>
+              <td>1,834</td>
+              <td>738</td>
+              <td>424</td>
+              <td>894</td>
+              <td>1,958</td>
+              <td>765</td>
+              <td>417</td>
+              <td>1,043</td>
+              <td class="highlight-col"><strong>2,051</strong></td>
+            </tr>
+            <tr>
+              <td class="sticky-col">EBITDA Margin</td>
+              <td>14%</td>
+              <td>33%</td>
+              <td>54%</td>
+              <td>33%</td>
+              <td>20%</td>
+              <td>33%</td>
+              <td>52%</td>
+              <td>31%</td>
+              <td>18%</td>
+              <td>34%</td>
+              <td class="highlight-col"><strong>50%</strong></td>
+            </tr>
+            <tr>
+              <td class="sticky-col">FCF ($M)</td>
+              <td>1,581</td>
+              <td>900</td>
+              <td>1,310</td>
+              <td>46</td>
+              <td>1,909</td>
+              <td>1,043</td>
+              <td>1,074</td>
+              <td>458</td>
+              <td>1,781</td>
+              <td>962</td>
+              <td class="highlight-col"><strong>1,349</strong></td>
+            </tr>
+            <tr>
+              <td class="sticky-col">TTM FCF ($M)</td>
+              <td>3,790</td>
+              <td>3,894</td>
+              <td>4,246</td>
+              <td>3,837</td>
+              <td>4,165</td>
+              <td>4,308</td>
+              <td>4,072</td>
+              <td>4,484</td>
+              <td>4,356</td>
+              <td>4,275</td>
+              <td class="highlight-col"><strong>4,550</strong></td>
+            </tr>
+            <tr>
+              <td class="sticky-col">Nights Booked (M)</td>
+              <td>121.1</td>
+              <td>115.1</td>
+              <td>113.2</td>
+              <td>98.8</td>
+              <td>132.6</td>
+              <td>125.1</td>
+              <td>122.8</td>
+              <td>111.0</td>
+              <td>143.1</td>
+              <td>134.4</td>
+              <td class="highlight-col"><strong>133.6</strong></td>
+            </tr>
+            <tr>
+              <td class="sticky-col">Nights Y/Y</td>
+              <td>19%</td>
+              <td>11%</td>
+              <td>14%</td>
+              <td>12%</td>
+              <td>9%</td>
+              <td>9%</td>
+              <td>8%</td>
+              <td>12%</td>
+              <td>8%</td>
+              <td>7%</td>
+              <td class="highlight-col"><strong>9%</strong></td>
+            </tr>
+            <tr>
+              <td class="sticky-col">GBV ($B)</td>
+              <td>20.4</td>
+              <td>19.1</td>
+              <td>18.3</td>
+              <td>15.5</td>
+              <td>22.9</td>
+              <td>21.2</td>
+              <td>20.1</td>
+              <td>17.6</td>
+              <td>24.5</td>
+              <td>23.5</td>
+              <td class="highlight-col"><strong>22.9</strong></td>
+            </tr>
+            <tr>
+              <td class="sticky-col">GBV Y/Y</td>
+              <td>19%</td>
+              <td>13%</td>
+              <td>17%</td>
+              <td>15%</td>
+              <td>12%</td>
+              <td>11%</td>
+              <td>10%</td>
+              <td>13%</td>
+              <td>7%</td>
+              <td>11%</td>
+              <td class="highlight-col"><strong>14%</strong></td>
+            </tr>
+            <tr>
+              <td class="sticky-col">ADR</td>
+              <td>$168</td>
+              <td>$166</td>
+              <td>$161</td>
+              <td>$157</td>
+              <td>$173</td>
+              <td>$170</td>
+              <td>$164</td>
+              <td>$158</td>
+              <td>$171</td>
+              <td>$174</td>
+              <td class="highlight-col"><strong>$171</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Regional Performance -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <h2>Q3 2025 Regional Performance</h2>
+        <p>Nights & Seats Booked growth by region (Y/Y)</p>
+      </div>
+
+      <div class="chart-row two-col">
+        <div class="chart-card">
+          <h3>Regional Nights Booked Growth (Q3 2025 Y/Y)</h3>
+          <div class="chart-container">
+            <canvas id="regionalChart"></canvas>
+          </div>
+        </div>
+        <div class="chart-card">
+          <h3>Regional ADR Change (Q3 2025 Y/Y)</h3>
+          <div class="chart-container">
+            <canvas id="adrRegionalChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="regional-highlights">
+        <div class="regional-card">
+          <h4>North America</h4>
+          <div class="regional-stat">Mid-single digit</div>
+          <p>Nights & Seats Booked growth. ADR +5% driven by mix shift. Reserve Now, Pay Later launched in Aug helped accelerate bookings.</p>
+        </div>
+        <div class="regional-card">
+          <h4>EMEA</h4>
+          <div class="regional-stat">Mid-single digit</div>
+          <p>Nights & Seats Booked growth. Slight unfavorable Y/Y comp due to Paris Olympics in 2024. ADR +10% (4% ex-FX).</p>
+        </div>
+        <div class="regional-card">
+          <h4>Latin America</h4>
+          <div class="regional-stat">Low-20s%</div>
+          <p>Nights & Seats Booked growth. Brazil origin nights +20%, first-time bookers +17%. Installment plans more than doubled booker uptake.</p>
+        </div>
+        <div class="regional-card">
+          <h4>Asia Pacific</h4>
+          <div class="regional-stat">Mid-teens%</div>
+          <p>Nights & Seats Booked growth. Japan domestic travel +27% Y/Y (3rd consecutive quarter of acceleration). First-time bookers +50% in India.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Q4 2025 Outlook -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Q4 2025 Outlook</h2>
+        <p>Forward guidance provided in Q3 2025 shareholder letter</p>
+      </div>
+
+      <div class="outlook-grid">
+        <div class="outlook-card">
+          <h4>Q4 Revenue Guidance</h4>
+          <div class="outlook-value">$2.66B - $2.72B</div>
+          <p>7% to 10% Y/Y growth, inclusive of small FX tailwind. Implied take rate expected flat Y/Y.</p>
+        </div>
+        <div class="outlook-card">
+          <h4>Q4 GBV Growth</h4>
+          <div class="outlook-value">Low-double-digits Y/Y</div>
+          <p>Benefiting from modest ADR increase (price appreciation + FX) and continued Nights & Seats Booked growth.</p>
+        </div>
+        <div class="outlook-card">
+          <h4>Q4 Nights & Seats Booked</h4>
+          <div class="outlook-value">Mid-single-digit Y/Y</div>
+          <p>Growth expected in mid-single-digit range due to challenging Q4 2024 comparison (+12% Y/Y).</p>
+        </div>
+        <div class="outlook-card">
+          <h4>FY 2025 Adj. EBITDA Margin</h4>
+          <div class="outlook-value">~35%</div>
+          <p>Q4 EBITDA flat-to-down slightly Y/Y. Includes ~$200M investment in services & experiences.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Balance Sheet Highlights -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <h2>Balance Sheet & Capital Allocation</h2>
+        <p>As of September 30, 2025</p>
+      </div>
+
+      <div class="balance-grid">
+        <div class="balance-card">
+          <div class="balance-value">$11.7B</div>
+          <div class="balance-label">Cash, Short-term Investments & Restricted Cash</div>
+        </div>
+        <div class="balance-card">
+          <div class="balance-value">$7.2B</div>
+          <div class="balance-label">Funds Held on Behalf of Guests</div>
+        </div>
+        <div class="balance-card">
+          <div class="balance-value">$857M</div>
+          <div class="balance-label">Share Repurchases in Q3 2025</div>
+        </div>
+        <div class="balance-card">
+          <div class="balance-value">$6.6B</div>
+          <div class="balance-label">Remaining Repurchase Authorization</div>
+        </div>
+        <div class="balance-card">
+          <div class="balance-value">646M</div>
+          <div class="balance-label">Fully Diluted Share Count</div>
+        </div>
+        <div class="balance-card">
+          <div class="balance-value">~8%</div>
+          <div class="balance-label">Diluted Share Reduction Since Q3 2022</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-left">
+          <p><strong>Data Source:</strong> Airbnb Q3 2025 Shareholder Letter, published November 6, 2025</p>
+          <p>Available at <a href="https://investors.airbnb.com" target="_blank" rel="noopener">investors.airbnb.com</a></p>
+        </div>
+        <div class="footer-right">
+          <p class="footer-private">Privately managed by Archit Sadana</p>
+          <p class="footer-disclaimer">This site is for personal reference only. Not for redistribution.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="charts.js"></script>
+</body>
+</html>
