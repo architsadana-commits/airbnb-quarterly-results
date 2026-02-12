@@ -5,8 +5,9 @@ Static website showing Airbnb quarterly financial results starting from Q3 2025.
 Data sourced exclusively from official Airbnb Shareholder Letters at investors.airbnb.com
 (hosted on s26.q4cdn.com/656283129/).
 
-**Owner:** Archit Sadana (private, not for redistribution)
-**Access:** Airbnb employees only via Cloudflare Access (@airbnb.com email gate)
+**Owner:** Archit Sadana
+**Site URL:** https://architsadana-commits.github.io/airbnb-quarterly-results/
+**Repo:** https://github.com/architsadana-commits/airbnb-quarterly-results (public)
 
 ---
 
@@ -16,38 +17,70 @@ Data sourced exclusively from official Airbnb Shareholder Letters at investors.a
 airbnb-quarterly-results/
   index.html          # Page layout and structure
   styles.css          # All styling (responsive, dark hero, Airbnb palette)
-  data.js             # ALL quarterly data - only file to edit for new quarters
+  data.js             # ALL quarterly data - ONLY file to edit for new quarters
   charts.js           # Chart.js rendering - auto-reads from data.js
   airbnb-logo.svg     # Airbnb Bélo logo (symbol only, no wordmark)
-  deploy.sh           # One-command Cloudflare Pages deploy
+  deploy.sh           # Legacy Cloudflare deploy script (not used - using GitHub Pages)
   REFERENCE.md        # This file
 ```
 
-## How to Add a New Quarter (e.g., Q4 2025)
+## Hosting
 
-1. Download the shareholder letter PDF from investors.airbnb.com
-   - URL pattern: `https://s26.q4cdn.com/656283129/files/doc_financials/YYYY/qN/Airbnb_QN-YYYY-Shareholder-Letter.pdf`
-   - Convert to text: `pdftotext <file>.pdf <file>.txt`
+**Platform:** GitHub Pages (free)
+**URL:** https://architsadana-commits.github.io/airbnb-quarterly-results/
+**Repo:** https://github.com/architsadana-commits/airbnb-quarterly-results
+**Branch:** main, path: / (root)
+**Auto-deploy:** Yes — every `git push` to main triggers a rebuild
 
-2. Edit `data.js` only:
-   - Uncomment the Q4 '25 template at the bottom of the `QUARTERS` array
-   - Fill in numbers from the shareholder letter
-   - Update `LATEST_QUARTER`, `LATEST_QUARTER_END`, `SHAREHOLDER_LETTER_DATE`
-   - Update `OUTLOOK` section with any new forward guidance
-   - Update `REGIONAL` section with new regional data
+---
 
-3. Update `index.html` comparison tables:
-   - Y/Y comparison table (Q4 2025 vs Q4 2024)
-   - Q/Q comparison table (Q4 2025 vs Q3 2025)
-   - Hero section cards with latest quarter highlights
+## IMPORTANT: Q4 2025 Update
 
-4. Redeploy:
-   ```bash
-   cd ~/vscode/airbnb-quarterly-results
-   wrangler pages deploy . --project-name=airbnb-quarterly-results
-   ```
+**The site does NOT auto-update when Q4 results come out.** It is a static site with manually entered data. You must update the data yourself (or ask Claude Code to do it).
 
-Charts, full data table, and trend lines update automatically from data.js.
+### How to Add Q4 2025 (step-by-step)
+
+**Step 1 — Get the data**
+Download the Q4 2025 shareholder letter PDF from investors.airbnb.com when published.
+Try this URL pattern:
+```
+https://s26.q4cdn.com/656283129/files/doc_financials/2025/q4/Airbnb_Q4-2025-Shareholder-Letter.pdf
+```
+Convert to text:
+```bash
+pdftotext ~/Downloads/Airbnb_Q4-2025-Shareholder-Letter.pdf /tmp/q4_2025.txt
+```
+
+**Step 2 — Edit data.js**
+Open `~/vscode/airbnb-quarterly-results/data.js` and:
+1. Uncomment the `Q4 '25` template block at the bottom of the `QUARTERS` array
+2. Fill in the numbers from the shareholder letter
+3. Update these variables at the top:
+   - `LATEST_QUARTER` → `'Q4 2025'`
+   - `LATEST_QUARTER_END` → `'December 31, 2025'`
+   - `SHAREHOLDER_LETTER_DATE` → the publish date
+4. Update `OUTLOOK` with any new forward guidance
+5. Update `REGIONAL` with new regional performance data
+
+**Step 3 — Update index.html**
+- Hero section: update headline metrics
+- Y/Y comparison table: Q4 2025 vs Q4 2024
+- Q/Q comparison table: Q4 2025 vs Q3 2025
+- Outlook section: replace with new guidance (Q1 2026)
+
+**Step 4 — Push to deploy**
+```bash
+cd ~/vscode/airbnb-quarterly-results
+git add .
+git commit -m "Add Q4 2025 results"
+git push
+```
+Site updates automatically within 1-2 minutes.
+
+**Or just open Claude Code and say:**
+> "Q4 2025 results are out. Update AirPulse with the new data from the shareholder letter."
+
+---
 
 ## Key Metrics Tracked
 
@@ -66,49 +99,32 @@ Charts, full data table, and trend lines update automatically from data.js.
 | Implied Take Rate | `impliedTakeRate` |
 | Fully Diluted Shares | `fullyDilutedShares` |
 
-## Hosting & Access Control
-
-**Platform:** Cloudflare Pages (free tier)
-**URL:** `https://airbnb-quarterly-results.pages.dev`
-**Auth:** Cloudflare Access with @airbnb.com email restriction
-
-### Setup Steps (one-time)
-1. `wrangler login` (authenticate with Cloudflare)
-2. `wrangler pages deploy . --project-name=airbnb-quarterly-results`
-3. Cloudflare Zero Trust dashboard (one.dash.cloudflare.com):
-   - Access > Applications > Add Self-hosted
-   - Domain: `airbnb-quarterly-results.pages.dev`
-   - Policy: Allow → Emails ending in `@airbnb.com`
-
-### Redeploy (after edits)
-```bash
-cd ~/vscode/airbnb-quarterly-results
-wrangler pages deploy . --project-name=airbnb-quarterly-results
-```
-
 ## Tech Stack
 - HTML/CSS/JS (no build step, no framework)
 - Chart.js 4.4.4 (via CDN)
 - Inter font (via Google Fonts)
-- Cloudflare Pages + Access for hosting/auth
+- GitHub Pages for hosting
 
-## Data Sources Used in Build
+## Data Sources
 
 | Quarter | Source Document |
 |---------|---------------|
 | Q1 2023 – Q3 2025 | Airbnb Q3 2025 Shareholder Letter (Nov 6, 2025) |
 | Q4 2025 | Pending — expected mid-to-late February 2026 |
 
-All data was extracted from the official PDF at:
+All data extracted from official PDF at:
 `s26.q4cdn.com/656283129/files/doc_financials/2025/q3/Airbnb_Q3-2025-Shareholder-Letter.pdf`
+Extracted using `pdftotext` and verified against quarterly summary tables.
 
-Extracted using `pdftotext` and verified against the quarterly summary tables in the letter.
-
-## Design Decisions
+## Design
 - **Header:** Airbnb Bélo (symbol only) + "AirPulse"
-- **Hero:** Dark gradient with key Q3 2025 metrics
-- **Charts:** 11 interactive Chart.js visualizations with latest quarter highlighted
+- **Hero:** Dark gradient with latest quarter headline metrics
+- **Charts:** 11 interactive Chart.js visualizations (latest quarter highlighted)
 - **Tables:** Y/Y comparison, Q/Q comparison, full historical data (scrollable)
-- **Regional:** 4-region breakdown with growth rates and highlights
+- **Regional:** 4-region breakdown with growth rates
 - **Outlook:** Forward guidance cards from latest shareholder letter
-- **Privacy:** noindex/nofollow meta, "Private & Confidential" badge, Cloudflare Access
+
+## Build & Deploy History
+- **2026-02-12:** Initial build with Q3 2025 data. Deployed to GitHub Pages.
+  - Repo: github.com/architsadana-commits/airbnb-quarterly-results
+  - URL: architsadana-commits.github.io/airbnb-quarterly-results/
