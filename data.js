@@ -13,9 +13,9 @@
 //   6. Redeploy: wrangler pages deploy . --project-name=airbnb-quarterly-results
 // =============================================================================
 
-const LATEST_QUARTER = 'Q3 2025';
-const LATEST_QUARTER_END = 'September 30, 2025';
-const SHAREHOLDER_LETTER_DATE = 'November 6, 2025';
+const LATEST_QUARTER = 'Q4 2025';
+const LATEST_QUARTER_END = 'December 31, 2025';
+const SHAREHOLDER_LETTER_DATE = 'February 12, 2026';
 
 // Each quarter's data from official shareholder letters
 // Add new quarters by appending to this array
@@ -183,62 +183,59 @@ const QUARTERS = [
     appBookingGrowth: 17, // app bookings Y/Y growth %
   },
 
-  // =========================================================================
-  // ADD Q4 2025 HERE when the shareholder letter is published
-  // Expected: mid-to-late February 2026
-  // Download from: investors.airbnb.com -> Financials -> Quarterly Results
-  // =========================================================================
-  // {
-  //   label: "Q4 '25", period: 'Q4 2025',
-  //   revenue: ????, revenueYoY: ??, revenueYoYExFx: ??,
-  //   netIncome: ????, netIncomeMargin: ??,
-  //   adjEbitda: ???, ebitdaMargin: ??,
-  //   fcf: ???, fcfMargin: ??,
-  //   ttmFcf: ????,
-  //   nightsBooked: ???.?, nightsYoY: ??,
-  //   gbv: ??.?, gbvYoY: ??,
-  //   adr: ???.??, adrYoY: ??,
-  //   operatingCashFlow: ????,
-  //   cashAndLiquidAssets: ?????,
-  //   fundsHeldForGuests: ????,
-  //   unearned: ????,
-  //   shareRepurchases: ???,
-  //   remainingBuybackAuth: ????,
-  //   fullyDilutedShares: ???,
-  //   impliedTakeRate: ??.?,
-  // },
+  {
+    label: "Q4 '25", period: 'Q4 2025',
+    revenue: 2778, revenueYoY: 12, revenueYoYExFx: 11,
+    netIncome: 341, netIncomeMargin: 12,
+    adjEbitda: 786, ebitdaMargin: 28,
+    fcf: 521, fcfMargin: 19,
+    ttmFcf: 4613, ttmFcfMargin: 38,
+    nightsBooked: 121.9, nightsYoY: 10,
+    gbv: 20.4, gbvYoY: 16, gbvYoYExFx: 13,
+    adr: 167.51, adrYoY: 6,
+    operatingCashFlow: 526,
+    cashAndLiquidAssets: 11049,
+    fundsHeldForGuests: 6959,
+    unearned: 1743,
+    shareRepurchases: 1100,
+    remainingBuybackAuth: 5600,
+    fullyDilutedShares: 614,
+    impliedTakeRate: 13.6,
+    appBookingShare: 64,
+    appBookingGrowth: 20,
+  },
 ];
 
-// Q4 2025 guidance (from Q3 2025 shareholder letter)
+// Q1 2026 guidance (from Q4 2025 shareholder letter)
 const OUTLOOK = {
-  quarter: 'Q4 2025',
+  quarter: 'Q1 2026',
   items: [
     {
-      label: 'Q4 Revenue Guidance',
-      value: '$2.66B - $2.72B',
-      detail: '7% to 10% Y/Y growth, inclusive of small FX tailwind. Implied take rate expected flat Y/Y.',
+      label: 'Q1 2026 Revenue Guidance',
+      value: '$2.59B - $2.63B',
+      detail: '14% to 16% Y/Y growth, inclusive of ~3pp FX tailwind. Implied take rate expected up slightly Y/Y.',
     },
     {
-      label: 'Q4 GBV Growth',
-      value: 'Low-double-digits Y/Y',
-      detail: 'Benefiting from modest ADR increase (price appreciation + FX) and continued Nights & Seats Booked growth.',
+      label: 'Q1 2026 GBV Growth',
+      value: 'Low-teens Y/Y',
+      detail: 'Driven by high-single-digit growth in Nights & Seats Booked and moderate ADR increase (price appreciation + FX).',
     },
     {
-      label: 'Q4 Nights & Seats Booked',
-      value: 'Mid-single-digit Y/Y',
-      detail: 'Growth expected in mid-single-digit range due to challenging Q4 2024 comparison (+12% Y/Y).',
+      label: 'Q1 2026 Adj. EBITDA Margin',
+      value: '~Flat Y/Y',
+      detail: 'Approximately flat year-over-year in Q1 2026.',
     },
     {
-      label: 'FY 2025 Adj. EBITDA Margin',
-      value: '~35%',
-      detail: 'Q4 EBITDA flat-to-down slightly Y/Y. Includes ~$200M investment in services & experiences.',
+      label: 'FY 2026 Revenue Growth',
+      value: 'At least low-double-digits',
+      detail: 'Revenue growth expected to accelerate. EBITDA margin stable Y/Y as top-line efficiencies reinvested in marketing, product, and technology.',
     },
   ],
 };
 
-// Regional performance for latest quarter (Q3 2025)
+// Regional performance for latest quarter (Q4 2025)
 const REGIONAL = {
-  quarter: 'Q3 2025',
+  quarter: 'Q4 2025',
   regions: [
     {
       name: 'North America',
@@ -246,31 +243,31 @@ const REGIONAL = {
       nightsGrowthApprox: 5,
       adrChange: 5,
       adrChangeExFx: null,
-      highlights: 'Sequential acceleration driven by strong domestic travel and longer lead times. Reserve Now, Pay Later launched in Aug helped accelerate bookings.',
+      highlights: 'Continued strong demand for domestic travel and trips with longer lead times. ADR +5% driven by mix shift toward short-term stays and entire homes with 4+ bedrooms.',
     },
     {
       name: 'EMEA',
-      nightsGrowth: 'Mid-single digit',
-      nightsGrowthApprox: 5,
-      adrChange: 10,
+      nightsGrowth: 'High-single digit',
+      nightsGrowthApprox: 8,
+      adrChange: 12,
       adrChangeExFx: 4,
-      highlights: 'Slight unfavorable Y/Y comp due to Paris Olympics in 2024. ADR +10% (4% ex-FX) primarily due to price appreciation.',
+      highlights: 'Acceleration vs Q3 2025 with broad improvement across core and expansion markets including UK, Spain, and Italy. ADR +12% (+4% ex-FX).',
     },
     {
       name: 'Latin America',
-      nightsGrowth: 'Low-20s%',
-      nightsGrowthApprox: 22,
-      adrChange: 4,
+      nightsGrowth: 'High-teens%',
+      nightsGrowthApprox: 18,
+      adrChange: 9,
       adrChangeExFx: 3,
-      highlights: 'Brazil origin nights +20%, first-time bookers +17%. Interest-free installment plans more than doubled booker uptake.',
+      highlights: 'Brazil origin nights +20%, first-time bookers +17%. Mexico origin nights accelerated to high-teens Y/Y. ADR +9% (+3% ex-FX).',
     },
     {
       name: 'Asia Pacific',
       nightsGrowth: 'Mid-teens%',
       nightsGrowthApprox: 15,
       adrChange: 2,
-      adrChangeExFx: 3,
-      highlights: 'Japan domestic travel +27% Y/Y (3rd consecutive quarter of acceleration). First-time bookers +20% Japan, +50% India.',
+      adrChangeExFx: 2,
+      highlights: 'Continued strength in Japan domestic travel. India origin nights +50% Y/Y, first-time bookers +60% Y/Y.',
     },
   ],
 };

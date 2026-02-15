@@ -110,10 +110,11 @@ Site updates automatically within 1-2 minutes.
 | Quarter | Source Document |
 |---------|---------------|
 | Q1 2023 – Q3 2025 | Airbnb Q3 2025 Shareholder Letter (Nov 6, 2025) |
-| Q4 2025 | Pending — expected mid-to-late February 2026 |
+| Q4 2025 | Airbnb Q4 2025 Shareholder Letter (Feb 12, 2026) |
 
-All data extracted from official PDF at:
+All data extracted from official PDFs at:
 `s26.q4cdn.com/656283129/files/doc_financials/2025/q3/Airbnb_Q3-2025-Shareholder-Letter.pdf`
+`s26.q4cdn.com/656283129/files/doc_financials/2025/q4/Airbnb_Q4-2025-Shareholder-Letter.pdf`
 Extracted using `pdftotext` and verified against quarterly summary tables.
 
 ## Design
@@ -125,6 +126,7 @@ Extracted using `pdftotext` and verified against quarterly summary tables.
 - **Outlook:** Forward guidance cards from latest shareholder letter
 
 ## Build & Deploy History
+- **2026-02-15:** Added Q4 2025 data from shareholder letter published Feb 12, 2026.
 - **2026-02-12:** Initial build with Q3 2025 data. Deployed to GitHub Pages.
   - Repo: github.com/architsadana-commits/airbnb-quarterly-results
   - URL: architsadana-commits.github.io/airbnb-quarterly-results/
